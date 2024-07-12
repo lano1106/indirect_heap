@@ -144,7 +144,7 @@ remove(RandomAccessIterator first, RandomAccessIterator last,
     ValueType v{std::move(*result)};
 
     // the current root is going to be popped
-    *result = std::move(*first);
+    *result = std::move(*popPos);
     downheap(first, DistanceType{},
              DistanceType{popPos - first},
              DistanceType(last - first),

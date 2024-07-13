@@ -37,7 +37,8 @@ template<typename RandomAccessIterator,
          typename Compare>
 constexpr void
 upheap(RandomAccessIterator first,
-       Distance k, Distance topIndex,
+       Distance k,
+       Distance topIndex,
        itemType v, Compare & comp)
 {
     Distance parent{(k - 1) / 2};
@@ -143,13 +144,29 @@ remove(RandomAccessIterator first, RandomAccessIterator last,
      */
     ValueType v{std::move(*result)};
 
-    // the current root is going to be popped
+    // popPos is going to be popped
     *result = std::move(*popPos);
-    downheap(first, DistanceType{},
-             DistanceType{popPos - first},
-             DistanceType(last - first),
+
+    downheap(first, DistanceType{},        // topIndex
+             DistanceType{popPos - first}, // k
+             DistanceType(last - first),   // len
              std::move(v), comp);
 }
+}
+
+template<typename RandomAccessIterator, typename Compare>
+constexpr inline void
+upheap(RandomAccessIterator first, RandomAccessIterator last,
+       RandomAccessIterator changed, Compare comp)
+{
+    using ValueType    = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    using DistanceType = typename std::iterator_traits<RandomAccessIterator>::difference_type;
+    ValueType v = std::move(*(changed));
+
+    HeapHelpers::upheap(first,                         // first
+                        DistanceType(changed - first), // k
+                        DistanceType{},                // top index
+                        std::move(v), comp);
 }
 
 /**
@@ -169,12 +186,7 @@ constexpr inline void
 push_heap(RandomAccessIterator first, RandomAccessIterator last,
           Compare comp)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    using DistanceType = typename std::iterator_traits<RandomAccessIterator>::difference_type;
-    ValueType value = std::move(*(last - 1));
-
-    HeapHelpers::upheap(first, DistanceType((last - first) - 1),
-                        DistanceType{}, std::move(value), comp);
+    Base::upheap(first, last, last - 1, comp);
 }
 
 /**

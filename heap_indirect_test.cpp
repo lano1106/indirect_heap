@@ -221,6 +221,11 @@ int main(int argc, char *argv[])
     (*(cpit+7))->v = 'V';
     Base::upheap(cpit, cpit+12, cpit+7, charCmp);
     printPtrTestVec(cpit, cpit+12);
-    
+
+    std::cout << "\nchange V at pos 1 to B:\n";
+    (*(cpit+1))->v = 'B';
+    Base::downheap(cpit, cpit+12, cpit+1, charCmp);
+    printPtrTestVec(cpit, cpit+12);
+
     return 0;
 }

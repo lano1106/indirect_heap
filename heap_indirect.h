@@ -161,12 +161,27 @@ upheap(RandomAccessIterator first, RandomAccessIterator last,
 {
     using ValueType    = typename std::iterator_traits<RandomAccessIterator>::value_type;
     using DistanceType = typename std::iterator_traits<RandomAccessIterator>::difference_type;
-    ValueType v = std::move(*(changed));
+    ValueType v = std::move(*changed);
 
     HeapHelpers::upheap(first,                         // first
                         DistanceType(changed - first), // k
                         DistanceType{},                // top index
                         std::move(v), comp);
+}
+
+template<typename RandomAccessIterator, typename Compare>
+constexpr inline void
+downheap(RandomAccessIterator first, RandomAccessIterator last,
+         RandomAccessIterator changed, Compare comp)
+{
+    using ValueType    = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    using DistanceType = typename std::iterator_traits<RandomAccessIterator>::difference_type;
+    ValueType v = std::move(*changed);
+
+    HeapHelpers::downheap(first, DistanceType{},         // topIndex
+                          DistanceType{changed - first}, // k
+                          DistanceType(last - first),    // len
+                          std::move(v), comp);
 }
 
 /**

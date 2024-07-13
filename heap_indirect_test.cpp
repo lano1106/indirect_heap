@@ -213,6 +213,14 @@ int main(int argc, char *argv[])
     std::cout << "\nremove T at pos 1:\n";
     Base::pop_heap(cpit, cpit+12, cpit+1, charCmp);
     printPtrTestVec(cpit, cpit+11);
+
+    charVec    = origCharVec;
+    charPtrVec = origCharPtrVec;
+
+    std::cout << "\nchange A at pos 7 to V:\n";
+    (*(cpit+7))->v = 'V';
+    Base::upheap(cpit, cpit+12, cpit+7, charCmp);
+    printPtrTestVec(cpit, cpit+12);
     
     return 0;
 }

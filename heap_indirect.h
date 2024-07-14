@@ -119,11 +119,7 @@ downheap(RandomAccessIterator first,
      * at this point, k points to the hole, upheap the heap
      * with v from this point.
      *
-     * NOTE:
-     * This seems like downheap() could be simplified by following
-     * the algorithm in Robert Sedgewick book.
-     *
-     * This needs to be tried once unit tests are in place.
+     * NOTE:.
      * this is done to preserve stability.
      */
     upheap(first, k, topIndex, std::move(v), comp);

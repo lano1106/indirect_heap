@@ -2,6 +2,7 @@
 #define HEAP_INDIRECT_H_
 /*
  * Indirect Heap algorithms
+ * https://github.com/lano1106/indirect_heap
  *
  * pretty much a copy of the standard heap algorithms except that they
  * are augmented by storing the element position when it is moved in the

@@ -1,5 +1,6 @@
 /*
  * heap indirect test
+ * https://github.com/lano1106/indirect_heap
  *
  * Olivier Langlois July 12, 2024
  *
@@ -136,7 +137,7 @@ int main(int argc, char *argv[])
 
     std::cout << "\nremove:\n";
     Base::pop_heap(ipit, ipit+5, intCmp);
-    printPtrTestVec(ipit, ipit+4);
+    printPtrTestVec(ipit, ipit+5);
 
     std::cout << "\ninsert(7):\n";
     *(ipit+4) = &intVec[6];
